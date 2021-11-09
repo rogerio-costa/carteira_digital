@@ -64,5 +64,10 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Conta');
     }
 
+
+    public function account() {
+        return $this->hasOne('App\Models\Account');
+    }
+
     
 }
