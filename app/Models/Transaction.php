@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'account_id',
+        'transaction_type_id',
+        'note',
+        'value'
+    ];
+
+    public function transaction_type()
+    {
+        return $this->hasOne('App\Models\TransactionType');
+    }
+
 }

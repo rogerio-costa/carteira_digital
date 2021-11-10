@@ -2,13 +2,13 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Account;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
-use App\Models\Conta;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -29,17 +29,17 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        $meuUsuario = User::create([
+        $myUser = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
 
-        Conta::create([
-            'user_id' => $meuUsuario->id,
-            'saldo' => 0.00
+        Account::create([
+            'user_id' => $myUser->id,
+            'balance' => 0.00
         ]);
 
-        return $meuUsuario;
+        return $myUser;
     }
 }

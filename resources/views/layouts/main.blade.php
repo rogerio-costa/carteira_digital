@@ -21,7 +21,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-    <a class="navbar-brand" href="{{ route('contas.index') }}">
+    <a class="navbar-brand" href="{{ route('accounts.index') }}">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin"
         viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z" />
@@ -48,8 +48,8 @@
             Histórico
           </a>
           <div class="dropdown-menu" aria-labelledby="historicoDropdown">
-            <a class="dropdown-item" href="{{ route('deposito.index') }}">Meus depósitos</a>
-            <a class="dropdown-item" href="{{ route('saque.index') }}">Meus saques</a>
+            <a class="dropdown-item" href="{{-- route('deposito.index') --}}">Meus depósitos</a>
+            <a class="dropdown-item" href="{{-- route('saque.index') --}}">Meus saques</a>
           </div>
         </li>
 
@@ -59,8 +59,19 @@
             Transações
           </a>
           <div class="dropdown-menu" aria-labelledby="transacoesDropdown">
-            <a class="dropdown-item" href="{{ route('deposito.create') }}">Realizar depósito</a>
-            <a class="dropdown-item" href="{{ route('saque.create') }}">Realizar saque</a>
+            <a class="dropdown-item" href="{{-- route('deposito.create') --}}">Realizar depósito</a>
+            <a class="dropdown-item" href="{{-- route('saque.create') --}}">Realizar saque</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="transacoesDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Tipos de Transações
+          </a>
+          <div class="dropdown-menu" aria-labelledby="transacoesDropdown">
+            <a class="dropdown-item" href="{{-- route('deposito.create') --}}">Cadastrar um tipo de transação</a>
+            <a class="dropdown-item" href="{{ route('transaction_types.index') }}">Gerenciar tipos de transação</a>
           </div>
         </li>
 
@@ -102,10 +113,10 @@
   </div>
   @endif
 
-  @if (session('error'))
+  @if (session('errors'))
   <div class="container-fluid p-3">
     <div class="alert alert-danger" role="alert">
-      {{ session('error') }}
+      {{ session('errors') }}
     </div>
   </div>
   @endif

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionTypeRequest;
 use App\Models\Account;
-use App\Models\Transaction;
+use App\Models\TransactionType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TransactionController extends Controller
+class TransactionTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +17,12 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
-        $user = Auth::user(); // Retrieve the currently authenticated user...
-        //$id = Auth::id(); 
+        $user = Auth::user();
         $account = Account::where('user_id', $user->id)->first();
-        $saidas = Transaction::where('account_id', $account->id)->get();
-        $qtd_saidas = sizeof($saidas);
-        return view('pages.transactions.index', [
+        $transaction_types = TransactionType::all();
+        return view('pages.transaction_types.index', [
             'account' => $account,
-            'qtd_saidas' => $qtd_saidas,
-            'saidas' => $saidas
+            'transaction_types' => $transaction_types
         ]);
     }
 
@@ -37,6 +34,7 @@ class TransactionController extends Controller
     public function create()
     {
         //
+        return view('pages.transaction_types.create');
     }
 
     /**
@@ -45,18 +43,22 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TransactionTypeRequest $request)
     {
-        //
+        dd($request->all());
+        $form = $request->validated();
+        TransactionType::create($form);
+        
+        return redirect()->route('pages.transaction_types.index')->with('success', 'Deposito realizado com sucesso');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param  \App\Models\TransactionType  $transactionType
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show(TransactionType $transactionType)
     {
         //
     }
@@ -64,10 +66,10 @@ class TransactionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param  \App\Models\TransactionType  $transactionType
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transaction $transaction)
+    public function edit(TransactionType $transactionType)
     {
         //
     }
@@ -76,10 +78,10 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
+     * @param  \App\Models\TransactionType  $transactionType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, TransactionType $transactionType)
     {
         //
     }
@@ -87,10 +89,10 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param  \App\Models\TransactionType  $transactionType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(TransactionType $transactionType)
     {
         //
     }

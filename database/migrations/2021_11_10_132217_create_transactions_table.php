@@ -15,6 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignID('account_id')->constrained();
+            $table->foreignID('transaction_type_id')->constrained();
+            $table->text('note');
+            $table->double('value', 8, 2);
             $table->timestamps();
         });
     }
@@ -27,5 +31,13 @@ class CreateTransactionsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('transactions');
+
+        Schema::table('transactions', function (Blueprint $table) {
+
+            $table->foreignId('account_id')->constrained()->onDelete('cascade');
+            $table->foreignId('transaction_type_id')->constrained()->onDelete('cascade');
+
+        });
+
     }
 }
