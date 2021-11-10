@@ -45,11 +45,10 @@ class TransactionTypeController extends Controller
      */
     public function store(TransactionTypeRequest $request)
     {
-        dd($request->all());
         $form = $request->validated();
         TransactionType::create($form);
         
-        return redirect()->route('pages.transaction_types.index')->with('success', 'Deposito realizado com sucesso');
+        return redirect()->route('transaction_types.index')->with('success', 'Tipo de transação com sucesso'); //redirect eu passo o nome da rota
     }
 
     /**

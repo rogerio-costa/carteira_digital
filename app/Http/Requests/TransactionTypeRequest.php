@@ -19,4 +19,25 @@ class TransactionTypeRequest extends FormRequest
             'type_of' => ['required', 'boolean']
         ];
     }
+
+
+    /*
+    public function attributes()
+    {
+        return [
+            'name' => 'nome',
+            'type_of' => 'tipo da transação'
+        ];
+    }*/
+    
+
+    /*
+    public function messages()
+    {
+        return [
+            'required' => 'Testando menssagem manual de erro'
+        ];
+    }
+    */
+
 }

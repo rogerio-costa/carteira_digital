@@ -38,7 +38,7 @@
                             <td>{{ $transaction_type->name }}</td>
                             @if ($transaction_type->type_of == 0)
                                 <td>Entrada</td>
-                            @elseif ($transaction_type->type_of == 0)
+                            @elseif ($transaction_type->type_of == 1)
                                 <td>Saída</td>
                             @else
                                 <td>Inválido</td>
@@ -64,7 +64,6 @@
     </div>
 
 </div>
-
 
 
 @endsection

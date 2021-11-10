@@ -59,8 +59,8 @@
             Transações
           </a>
           <div class="dropdown-menu" aria-labelledby="transacoesDropdown">
-            <a class="dropdown-item" href="{{-- route('deposito.create') --}}">Realizar depósito</a>
-            <a class="dropdown-item" href="{{-- route('saque.create') --}}">Realizar saque</a>
+            <a class="dropdown-item" href="{{ route('transactions.create') }}">Cadastrar uma transação</a>
+            <a class="dropdown-item" href="{{ route('transactions.index') }}">Minhas transações</a>
           </div>
         </li>
 
@@ -70,8 +70,8 @@
             Tipos de Transações
           </a>
           <div class="dropdown-menu" aria-labelledby="transacoesDropdown">
-            <a class="dropdown-item" href="{{-- route('deposito.create') --}}">Cadastrar um tipo de transação</a>
-            <a class="dropdown-item" href="{{ route('transaction_types.index') }}">Gerenciar tipos de transação</a>
+            <a class="dropdown-item" href="{{ route('transaction_types.create') }}">Cadastrar um tipo de transação</a>
+            <a class="dropdown-item" href="{{ route('transaction_types.index') }}">Tipos de transação</a>
           </div>
         </li>
 
@@ -113,15 +113,17 @@
   </div>
   @endif
 
-  @if (session('errors'))
+
+  <!-- FIM MENSSAGENS -->
+  @if ($errors->any())
+  @foreach ($errors->all() as $error)
   <div class="container-fluid p-3">
     <div class="alert alert-danger" role="alert">
-      {{ session('errors') }}
+      {{ $error }}
     </div>
   </div>
+  @endforeach
   @endif
-  <!-- FIM MENSSAGENS -->
-
 
   @yield('conteudo')
 

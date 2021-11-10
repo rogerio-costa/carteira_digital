@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Transaction;
+use App\Models\TransactionType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,12 +21,12 @@ class TransactionController extends Controller
         $user = Auth::user(); // Retrieve the currently authenticated user...
         //$id = Auth::id(); 
         $account = Account::where('user_id', $user->id)->first();
-        $saidas = Transaction::where('account_id', $account->id)->get();
-        $qtd_saidas = sizeof($saidas);
+        $transactions = Transaction::where('account_id', $account->id)->get();
+        $qtd_transactions = sizeof($transactions);
         return view('pages.transactions.index', [
             'account' => $account,
-            'qtd_saidas' => $qtd_saidas,
-            'saidas' => $saidas
+            'transactions' => $transactions,
+            'qtd_transactions' => $qtd_transactions,
         ]);
     }
 
@@ -36,7 +37,10 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        $transaction_types = TransactionType::all();
+        return view('pages.transactions.create', [
+            'transaction_types' => $transaction_types,
+        ]);
     }
 
     /**

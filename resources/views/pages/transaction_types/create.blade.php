@@ -40,7 +40,7 @@
                     
 
                     <div class="container mb-3 text-center">
-                        <a href="{{ route('accounts.index') }}" class="btn btn-danger col-md-3">Cancelar</a>
+                        <a href="{{ route('transaction_types.index') }}" class="btn btn-danger col-md-3">Cancelar</a>
                         <button type="reset" class="btn btn-warning col-md-3">Limpar Campos</button>
                         <button type="submit" class="btn btn-success col-md-3">Cadastrar o Tipo de Transação</button>
                     </div>
