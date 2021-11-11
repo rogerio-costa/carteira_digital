@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionsExport;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Account;
 use App\Models\Transaction;
 use App\Models\TransactionType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -22,6 +24,7 @@ class TransactionController extends Controller
         $user = Auth::user(); 
         $account = Account::where('user_id', $user->id)->first();
         $transactions = Transaction::where('account_id', $account->id)->get();
+        $transaction_types = TransactionType::all();
 
         // Transações de entrada
         $qtd_inbound_transactions = sizeof(Transaction::where('type_of', 0)->get());
@@ -33,6 +36,7 @@ class TransactionController extends Controller
         return view('pages.transactions.index', [
             'account' => $account,
             'transactions' => $transactions,
+            'transaction_types' => $transaction_types,
             'qtd_inbound_transactions' => $qtd_inbound_transactions,
             'qtd_outbound_transactions' => $qtd_outbound_transactions
         ]);
@@ -148,4 +152,5 @@ class TransactionController extends Controller
     {
         //
     }
+    
 }
