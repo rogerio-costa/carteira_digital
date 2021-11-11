@@ -25,7 +25,7 @@
                     Saldo disponível
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title"> {{-- 'R$ '.number_format($conta->saldo, 2, ',', '.') --}} </h5>
+                    <h5 class="card-title"> {{ 'R$ '.number_format($account->balance, 2, ',', '.') }} </h5>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                     Quantidade de entradas realizadas
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{-- $qtd_depositos --}}</h5>
+                    <h5 class="card-title">{{ $qtd_inbound_transactions }}</h5>
                 </div>
             </div>
 
@@ -43,7 +43,7 @@
                     Quantidade de saídas realizadas
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{-- $qtd_saques --}}</h5>
+                    <h5 class="card-title">{{ $qtd_outbound_transactions }}</h5>
                 </div>
             </div>
 
@@ -53,12 +53,14 @@
     </div>
 
 
+    {{--
     <div class="container-fluid mb-3">
         <div class="card">
             <div class="card-header text-white bg-dark">
-                Histórico de Transações
+                Seja Bem Vindo(a)
             </div>
             <div class="card-body">
+
 
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
@@ -70,7 +72,7 @@
                     </thead>
                     <tbody>
 
-                        {{-- 
+
                         @foreach ($depositos as $deposito)
                         <tr>
                             <td>{{ date( 'd/m/Y - H:i:s' , strtotime($deposito->created_at))}}</td>
@@ -86,7 +88,7 @@
                             <td>{{ 'R$ '.number_format($saque->valor_saque, 2, ',', '.') }}</td>
                         </tr>
                         @endforeach
-                        --}}
+
 
                     </tbody>
                     <tfoot>
@@ -98,14 +100,15 @@
                     </tfoot>
                 </table>
 
+
             </div>
         </div>
     </div>
+    --}}
 
-    <div class="container mb-3 text-center">
-        <button class="btn btn-danger col-md-2">Gerar PDF</button>
-        <button class="btn btn-success col-md-2">Gerar XLS</button>
-        <a href="{{-- route('deposito.create') --}}" class="btn btn-primary col-md-2">Realizar Transação</a>
+    <div class="container-fluid mb-3 text-center">
+        <a href="{{ route('transactions.index') }}" class="btn btn-info col-md-2">Minhas Transações</a>
+        <a href="{{ route('transactions.create') }}" class="btn btn-primary col-md-2">Realizar Transação</a>
     </div>
 
 </div>

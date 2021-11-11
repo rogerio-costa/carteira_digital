@@ -42,16 +42,18 @@
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
       <ul class="navbar-nav mr-auto">
 
+        {{-- 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="historicoDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Histórico
           </a>
           <div class="dropdown-menu" aria-labelledby="historicoDropdown">
-            <a class="dropdown-item" href="{{-- route('deposito.index') --}}">Meus depósitos</a>
-            <a class="dropdown-item" href="{{-- route('saque.index') --}}">Meus saques</a>
+            <a class="dropdown-item" href="#">Meus depósitos</a>
+            <a class="dropdown-item" href="#">Meus saques</a>
           </div>
         </li>
+        --}}
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="transacoesDropdown" role="button" data-toggle="dropdown"

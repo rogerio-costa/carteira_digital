@@ -24,9 +24,21 @@ class TransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'transaction_type_id ' => ['required'],
-            'note' => [],
-            'value' => []
+            'account_id',
+            'transaction_type_id' => 'required',
+            'transaction_name',
+            'type_of',
+            'note' => 'max:255',
+            'value' => 'required'
+        ];
+    }
+
+    
+    public function attributes()
+    {
+        return [
+            'transaction_type_id' => 'Transação da Lista',
+            'value' => 'Valor da Transação'
         ];
     }
 }

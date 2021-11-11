@@ -16,6 +16,41 @@
 
 <div class="container-fluid p-3">
 
+    <div class="container-fluid mb-3">
+
+        <div class="card-deck">
+
+            <div class="card">
+                <div class="card-header text-white bg-success">
+                    Saldo disponível
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"> {{ 'R$ '.number_format($account->balance, 2, ',', '.') }} </h5>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header text-white bg-primary">
+                    Quantidade de entradas realizadas
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $qtd_inbound_transactions }}</h5>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header text-white bg-danger">
+                    Quantidade de saídas realizadas
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $qtd_outbound_transactions }}</h5>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
 
     <div class="container-fluid mb-3">
         <div class="card">
@@ -27,8 +62,8 @@
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Data</th>
                             <th>Transação</th>
-                            <th>Tipo da transação</th>
                             <th>Valor</th>
                             <th>Observação</th>
                         </tr>
@@ -36,20 +71,31 @@
                     <tbody>
 
                         @foreach ($transactions as $transaction)
-                        <tr>
-                            <td>{{ $transaction }}</td>
-                            <td>{{ $transaction }}</td>
-                            <td>{{ $transaction->value }}</td>
-                            <td>{{ $transaction->note }}</td>
-                           
-                        </tr>
+                        @if ($transaction->type_of == 1)
+                            <tr style="color:#DD3545">
+                                <td>{{ date( 'd/m/Y - H:i:s' , strtotime($transaction->created_at))}}</td>
+                                <td>{{ $transaction->transaction_name }}</td>
+                                <td>{{ 'R$ '.number_format($transaction->value, 2, ',', '.') }}</td>
+                                <td>{{ $transaction->note }}</td>
+
+                            </tr>
+                        @else
+                            <tr style="color:#28A745">
+                                <td>{{ date( 'd/m/Y - H:i:s' , strtotime($transaction->created_at))}}</td>
+                                <td>{{ $transaction->transaction_name }}</td>
+                                <td>{{ 'R$ '.number_format($transaction->value, 2, ',', '.') }}</td>
+                                <td>{{ $transaction->note }}</td>
+
+                            </tr>
+                            
+                        @endif
                         @endforeach
 
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>Data</th>
                             <th>Transação</th>
-                            <th>Tipo da transação</th>
                             <th>Valor</th>
                             <th>Observação</th>
                         </tr>
@@ -61,7 +107,9 @@
     </div>
 
     <div class="container mb-3 text-center">
-        <a href="{{ route('transactions.create') }}" class="btn btn-primary col-md-3">Cadastar uma Transação</a>
+        <button class="btn btn-danger col-md-2">Gerar PDF</button>
+        <button class="btn btn-success col-md-2">Gerar XLS</button>
+        <a href="{{ route('transactions.create') }}" class="btn btn-primary col-md-2">Fazer uma Transação</a>
     </div>
 
 </div>
