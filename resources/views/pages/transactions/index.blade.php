@@ -140,7 +140,7 @@
             </div>
             <div class="modal-body">
 
-                <form name="formXls">
+                <form name="formXls" action="{{ route('transactions.xls-export') }}" method="GET">
 
                     @csrf
 
@@ -223,6 +223,7 @@
 </script>
 
 <script>
+    /*
     $(function(){
         $('form[name="formXls"]').submit(function(event){
             event.preventDefault();
@@ -240,6 +241,7 @@
             });
         });
     });
+    */
 </script>
 
 @endsection

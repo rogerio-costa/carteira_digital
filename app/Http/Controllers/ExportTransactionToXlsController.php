@@ -26,7 +26,7 @@ class ExportTransactionToXlsController extends Controller
         $formData = $getTransactionsDataService->run($request->all());
 
         $xls['success'] = true;
-        echo json_encode($xls);
+        //echo json_encode($xls);
 
         return Excel::download(new TransactionsToXlsFromView($formData), 'transactions.xlsx');
     }
