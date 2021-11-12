@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,7 +42,12 @@ class Transaction extends Model
     public function scopeTransactionPeriod($query, $period)
     {
         $query->when($period[0] && $period[1], function ($query) use ($period) {
+            $query->whereBetween('transactions.created_at', [Carbon::createFromFormat('Y-m-d', $period[0])->startOfDay(), Carbon::createFromFormat('Y-m-d', $period[1])->endOfDay()]);
+        });
+        /*
+        $query->when($period[0] && $period[1], function ($query) use ($period) {
             $query->whereBetween('transactions.created_at', [$period[0], $period[1]]);
         });
+        */
     }
 }

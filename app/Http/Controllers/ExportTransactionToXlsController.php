@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\TransactionsExport;
 use App\Exports\TransactionsToXlsFromView;
-use App\Models\Account;
-use App\Models\Transaction;
 use App\Services\GetTransactionsDataService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExportTransactionToXlsController extends Controller
@@ -24,10 +20,16 @@ class ExportTransactionToXlsController extends Controller
     {
 
         $formData = $getTransactionsDataService->run($request->all());
+        $periodTotal =0;
+        foreach ($formData as $transaction) {
+            if ($transaction->type_of == 0){
+                $periodTotal = $periodTotal + $transaction->value;
+            }else{
+                $periodTotal = $periodTotal - $transaction->value;
+            }
+            
+          }
 
-        $xls['success'] = true;
-        //echo json_encode($xls);
-
-        return Excel::download(new TransactionsToXlsFromView($formData), 'transactions.xlsx');
+        return Excel::download(new TransactionsToXlsFromView($formData,$periodTotal), 'transactions.xlsx');
     }
 }

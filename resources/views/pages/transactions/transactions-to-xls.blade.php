@@ -1,7 +1,6 @@
 <table class="table">
     <thead>
         <tr>
-
             <th>ID</th>
             <th>ID da Conta</th>
             <th>Nome da Transação</th>
@@ -29,4 +28,15 @@
         </tr>
         @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>TOTAL DO PERÍODO </th>
+            <th>{{ 'R$ '.number_format($periodTotal, 2, ',', '.') }}</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
 </table>

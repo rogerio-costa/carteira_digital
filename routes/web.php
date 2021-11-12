@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ContaController;
 use App\Http\Controllers\DepositoController;
+use App\Http\Controllers\ExportTransactionToPdfController;
 use App\Http\Controllers\ExportTransactionToXlsController;
 use App\Http\Controllers\SaqueController;
 use App\Http\Controllers\TransactionController;
@@ -30,6 +31,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // Route Export Transactions To XLS
     Route::get('transactions/xls-export', ExportTransactionToXlsController::class)->name('transactions.xls-export');
+
+    // Route Export Transactions To pdf
+    Route::get('transactions/pdf-export', ExportTransactionToPdfController::class)->name('transactions.pdf-export');
     
     // Routes TRANSACTION
     Route::resource('transactions', TransactionController::class);

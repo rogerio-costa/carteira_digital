@@ -103,18 +103,15 @@
                 </table>
 
                 <div class="container mb-3 text-center">
-                    <button class="btn btn-danger col-md-2">Gerar PDF</button>
-
-                    {{--<a href="{{ route('transactions.xls-export') }}" class="btn btn-success col-md-2">Gerar XLS
-                        Geral</a>
-                    --}}
+                    <button class="btn btn-danger col-md-3" data-toggle="modal" data-target="#pdfModal">Gerar
+                        PDF</button>
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-success col-md-2" data-toggle="modal" data-target="#xlsModal">
+                    <button type="button" class="btn btn-success col-md-3" data-toggle="modal" data-target="#xlsModal">
                         Gerar XLS
                     </button>
 
-                    <a href="{{ route('transactions.create') }}" class="btn btn-primary col-md-2">Fazer uma
+                    <a href="{{ route('transactions.create') }}" class="btn btn-primary col-md-3">Fazer uma
                         Transação</a>
 
                 </div>
@@ -125,9 +122,7 @@
 
 </div>
 
-
-
-<!-- Modal -->
+<!-- Modal XLS -->
 <div class="modal fade bd-example-modal-lg" id="xlsModal" tabindex="-1" role="dialog" aria-labelledby="xlsModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -192,6 +187,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="reset" class="btn btn-warning">Limpar Campos</button>
                 <button type="submit" class="btn btn-success">Gerar XLS</button>
             </div>
 
@@ -200,6 +196,80 @@
     </div>
 </div>
 
+
+<!-- Modal PDF -->
+<div class="modal fade bd-example-modal-lg" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white bg-dark">
+                <h5 class="modal-title" id="pdfModalLabel">Gerar PDF com Filtros</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form name="formPdf" action="{{ route('transactions.pdf-export') }}" method="GET">
+
+                    @csrf
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label for="transaction_type_id">Transação</label>
+                            <select id="transaction_type_id" name="transaction_type_id" class="form-control">
+                                <option value="" selected>Selecione uma opção</option>
+                                @foreach ($transaction_types as $transaction_type)
+                                <option value={{ $transaction_type->id }}> {{ $transaction_type->name }} -
+                                    @if ( $transaction_type->type_of == 0 )
+                                    Entrada
+                                    @else
+                                    Saída
+                                    @endif
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Valor da transação</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">R$</div>
+                                </div>
+                                <input type="number" step="0.01" class="form-control" id="value" name="value"
+                                    placeholder="Exemplo: 100,00">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label for="initialDate">Data inicial</label>
+                            <input type="date" class="form-control" id="initialDate" name="initialDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="finalDate">Data final</label>
+                            <input type="date" class="form-control" id="finalDate" name="finalDate">
+                        </div>
+
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="reset" class="btn btn-warning">Limpar Campos</button>
+                <button type="submit" class="btn btn-success">Gerar PDF</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
 
