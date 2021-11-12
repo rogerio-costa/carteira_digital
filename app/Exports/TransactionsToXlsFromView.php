@@ -11,21 +11,16 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class TransactionsToXlsFromView implements FromView
 {
-    private array $data;
-    
-    public function __construct($data)
+    private $data;
+
+    public function __construct($formData)
     {
-        $this->data = $data;
+        $this->formData = $formData;
     }
     public function view(): View
     {
-        dd($this->data);
-        $user = Auth::user();
-        $account = Account::where('user_id', $user->id)->first();
-
-        $transactions = Transaction::where('account_id', $account->id)->get();
         return view('pages.transactions.transactions-to-xls', [
-            'transactions' => $transactions, 
+            'transactions' => $this->formData,
         ]);
     }
 }

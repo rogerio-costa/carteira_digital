@@ -178,11 +178,11 @@
                     <div class="form-row">
 
                         <div class="form-group col-md-6">
-                            <label for="initial-date">Data inicial</label>
+                            <label for="initialDate">Data inicial</label>
                             <input type="date" class="form-control" id="initialDate" name="initialDate">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="final-date">Data final</label>
+                            <label for="finalDate">Data final</label>
                             <input type="date" class="form-control" id="finalDate" name="finalDate">
                         </div>
 
@@ -233,11 +233,11 @@
                 data: $(this).serialize(),
                 dataType: 'json',
                 success: function(response){
-                    console.log(response);
+                    if(response.success === true){
+                        //window.open({{ route('transactions.xls-export') }})
+                    }
                 }
             });
-
-            {{-- method="post" action="{{ route('transactions.xls-export') }}" --}}
         });
     });
 </script>

@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // Route Export Transactions To XLS
     Route::get('transactions/xls-export', ExportTransactionToXlsController::class)->name('transactions.xls-export');
+    
     // Routes TRANSACTION
     Route::resource('transactions', TransactionController::class);
 
