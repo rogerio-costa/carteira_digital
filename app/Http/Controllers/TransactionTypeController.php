@@ -20,7 +20,7 @@ class TransactionTypeController extends Controller
         $user = Auth::user();
         $account = Account::where('user_id', $user->id)->first();
         $transaction_types = TransactionType::all();
-        return view('pages.transaction_types.index', [
+        return view('pages.transaction-types.index', [
             'account' => $account,
             'transaction_types' => $transaction_types
         ]);
@@ -34,7 +34,7 @@ class TransactionTypeController extends Controller
     public function create()
     {
         //
-        return view('pages.transaction_types.create');
+        return view('pages.transaction-types.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class TransactionTypeController extends Controller
         $form = $request->validated();
         TransactionType::create($form);
         
-        return redirect()->route('transaction_types.index')->with('success', 'Tipo de transação com sucesso'); //redirect eu passo o nome da rota
+        return redirect()->route('transaction-types.index')->with('success', 'Tipo de transação com sucesso'); //redirect eu passo o nome da rota
     }
 
     /**

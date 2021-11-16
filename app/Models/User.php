@@ -60,13 +60,8 @@ class User extends Authenticatable
     ];
 
 
-    public function conta() {
-        return $this->hasOne('App\Models\Conta');
-    }
-
-
     public function account() {
-        return $this->hasOne('App\Models\Account');
+        return $this->hasOne(Account::class);
     }
 
     

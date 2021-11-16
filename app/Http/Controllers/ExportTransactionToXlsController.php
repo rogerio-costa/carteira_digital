@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TransactionsToXlsFromView;
+use App\Models\Transaction;
 use App\Services\GetTransactionsDataService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,20 +17,12 @@ class ExportTransactionToXlsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function __invoke(Request $request, GetTransactionsDataService $getTransactionsDataService )
+    public function __invoke(Request $request, GetTransactionsDataService $getTransactionsDataService)
     {
+        $account = auth()->user()->account;
+        $transactions = $getTransactionsDataService->run($account, $request->all());
+        $periodTotal = $transactions->sum(fn (Transaction $transaction) => $transaction->isDeposit() ? $transaction->value : -$transaction->value);
 
-        $formData = $getTransactionsDataService->run($request->all());
-        $periodTotal =0;
-        foreach ($formData as $transaction) {
-            if ($transaction->type_of == 0){
-                $periodTotal = $periodTotal + $transaction->value;
-            }else{
-                $periodTotal = $periodTotal - $transaction->value;
-            }
-            
-          }
-
-        return Excel::download(new TransactionsToXlsFromView($formData,$periodTotal), 'transactions.xlsx');
+        return Excel::download(new TransactionsToXlsFromView($transactions,$periodTotal), 'transactions.xlsx');
     }
 }

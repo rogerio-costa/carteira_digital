@@ -14,7 +14,8 @@ class TransactionTypeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'type_of' => $this->faker->boolean(),
         ];
     }
 }

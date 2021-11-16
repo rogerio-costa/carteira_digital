@@ -17,8 +17,6 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->foreignID('account_id')->constrained();
             $table->foreignID('transaction_type_id')->constrained();
-            $table->text('transaction_name');
-            $table->boolean('type_of');
             $table->text('note')->nullable();
             $table->double('value', 10, 2);
             $table->timestamps();

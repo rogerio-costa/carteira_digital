@@ -16,20 +16,17 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $account = Account::where('user_id', $user->id)->first();
-
-        $transactions = Transaction::where('account_id', $account->id)->get();
+        $account = Account::where('user_id', auth()->id())->with('transactions.transactionType')->first();
 
         // Transações de entrada
-        $qtd_inbound_transactions = sizeof(Transaction::where('type_of', 0)->get());
+        $qtd_inbound_transactions = $account->transactions->where('transactionType.type_of', 0)->count();
 
         // Transações de saída
-        $qtd_outbound_transactions = sizeof(Transaction::where('type_of', 1)->get());
+        $qtd_outbound_transactions = $account->transactions->where('transactionType.type_of', 1)->count();
 
         return view('pages.accounts.index', [
             'account' => $account,
-            'transactions' => $transactions,
+            'transactions' => $account->transactions,
             'qtd_inbound_transactions' => $qtd_inbound_transactions,
             'qtd_outbound_transactions' => $qtd_outbound_transactions
         ]);

@@ -39,5 +39,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('transactions', TransactionController::class);
 
     // Routes TRANSACTION TYPE
-    Route::resource('transaction_types', TransactionTypeController::class);
+    Route::resource('transaction-types', TransactionTypeController::class);
 });

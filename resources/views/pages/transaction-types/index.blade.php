@@ -60,7 +60,7 @@
     </div>
 
     <div class="container mb-3 text-center">
-        <a href="{{ route('transaction_types.create') }}" class="btn btn-primary col-md-3">Cadastar um Tipo de Transação</a>
+        <a href="{{ route('transaction-types.create') }}" class="btn btn-primary col-md-3">Cadastar um Tipo de Transação</a>
     </div>
 
 </div>

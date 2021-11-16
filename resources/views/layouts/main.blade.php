@@ -72,8 +72,8 @@
             Tipos de Transações
           </a>
           <div class="dropdown-menu" aria-labelledby="transacoesDropdown">
-            <a class="dropdown-item" href="{{ route('transaction_types.create') }}">Cadastrar um tipo de transação</a>
-            <a class="dropdown-item" href="{{ route('transaction_types.index') }}">Tipos de transação</a>
+            <a class="dropdown-item" href="{{ route('transaction-types.create') }}">Cadastrar um tipo de transação</a>
+            <a class="dropdown-item" href="{{ route('transaction-types.index') }}">Tipos de transação</a>
           </div>
         </li>
 

@@ -16,8 +16,8 @@
         <tr>
             <td>{{ $transaction->id }}</td>
             <td>{{ $transaction->account_id }}</td>
-            <td>{{ $transaction->transaction_name }}</td>
-            @if ($transaction->type_of == 0)
+            <td>{{ $transaction->transactionType->name }}</td>
+            @if ($transaction->transactionType->type_of == 0)
             <td>Entrada</td>
             @else
             <td>Saída</td>

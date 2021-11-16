@@ -71,24 +71,17 @@
                     <tbody>
 
                         @foreach ($transactions as $transaction)
-                        @if ($transaction->type_of == 1)
-                        <tr style="color:#DD3545">
-                            <td>{{ date( 'd/m/Y - H:i:s' , strtotime($transaction->created_at))}}</td>
-                            <td>{{ $transaction->transaction_name }}</td>
-                            <td>{{ 'R$ '.number_format($transaction->value, 2, ',', '.') }}</td>
-                            <td>{{ $transaction->note }}</td>
+                            @if ($transaction->transactionType->type_of == 1)
+                                <tr style="color:#DD3545">
+                            @else
+                                <tr style="color:#28A745">
+                            @endif
+                                    <td>{{ date( 'd/m/Y - H:i:s' , strtotime($transaction->created_at))}}</td>
+                                    <td>{{ $transaction->transactionType->name }}</td>
+                                    <td>{{ 'R$ '.number_format($transaction->value, 2, ',', '.') }}</td>
+                                    <td>{{ $transaction->note }}</td>
 
-                        </tr>
-                        @else
-                        <tr style="color:#28A745">
-                            <td>{{ date( 'd/m/Y - H:i:s' , strtotime($transaction->created_at))}}</td>
-                            <td>{{ $transaction->transaction_name }}</td>
-                            <td>{{ 'R$ '.number_format($transaction->value, 2, ',', '.') }}</td>
-                            <td>{{ $transaction->note }}</td>
-
-                        </tr>
-
-                        @endif
+                                </tr>
                         @endforeach
 
                     </tbody>

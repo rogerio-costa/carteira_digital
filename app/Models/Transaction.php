@@ -13,16 +13,19 @@ class Transaction extends Model
     protected $fillable = [
         'account_id',
         'transaction_type_id',
-        'transaction_name',
-        'type_of',
         'note',
         'value',
         'created_at',
     ];
 
-    public function transaction_type()
+    public function transactionType()
     {
-        return $this->hasOne('App\Models\TransactionType');
+        return $this->belongsTo(TransactionType::class);
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
     }
 
     public function scopeTransactionTypeId($query, $transaction_type_id)
@@ -49,5 +52,10 @@ class Transaction extends Model
             $query->whereBetween('transactions.created_at', [$period[0], $period[1]]);
         });
         */
+    }
+
+    public function isDeposit(): bool 
+    {
+        return $this->transactionType->type_of == 0;
     }
 }

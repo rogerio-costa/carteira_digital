@@ -21,10 +21,13 @@ class Account extends Model
     }
 
 
-    public function transaction()
+    public function transactions()
     {
         return $this->hasMany('App\Models\Transaction');
     }
 
-
+    public function getNewBalance(float $value, TransactionType $transactionType)
+    {
+        return $this->balance + ($transactionType->type_of ? -1 : 1 * $value);
+    }
 }
