@@ -16,15 +16,12 @@ beforeEach(function () {
     $this->actingAs($this->user);
 });
 
-it('should be able to download a exel document', function () {
+it('should be able to download a pdf document', function () {
 
     Excel::fake();
     Account::factory()->for($this->user)->create();
 
-    //$transactionType = TransactionType::factory()->create();
-    //$transaction = Transaction::factory()->for($account)->for($transactionType)->create();
+    get(route('transactions.pdf-export'))->assertOk();
 
-    get(route('transactions.xls-export'))->assertOk();
-
-    Excel::assertDownloaded('transactions.xlsx');
+    Excel::assertDownloaded('transactions.pdf');
 });

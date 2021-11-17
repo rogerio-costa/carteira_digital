@@ -12,9 +12,9 @@ class GetTransactionsDataService
     public function run(Account $account, array $data): Collection
     {
         return $account->transactions()
-            ->transactionTypeId($data['transaction_type_id'])
-            ->transactionValue($data['value'])
-            ->transactionPeriod([$data['initialDate'], $data['finalDate']])
+            ->transactionTypeId($data['transaction_type_id'] ?? null)
+            ->transactionValue($data['value'] ?? null)
+            ->transactionPeriod([$data['initialDate'] ?? null, $data['finalDate']?? null] )
             ->get();
     }
 }

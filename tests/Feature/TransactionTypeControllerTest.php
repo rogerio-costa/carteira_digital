@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
+use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -96,4 +97,15 @@ it('should be able to return TransactionType store', function () {
     post(route('transaction-types.store'), $request)->assertRedirect(route('transaction-types.index'))->assertSessionHas('success');
 
     assertDatabaseHas('transaction_types', $request);
+});
+
+it('should not be able to store Transaction with the name field blank', function () {
+    $request =
+        [
+            'name' => '',
+            'type_of' => 0
+        ];
+
+    post(route('transaction-types.store'),$request)->assertRedirect()->assertSessionHas('errors');
+    assertDatabaseCount('transaction_types',0);
 });
