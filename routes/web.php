@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('transactions/pdf-export', ExportTransactionToPdfController::class)->name('transactions.pdf-export');
     
     // Routes TRANSACTION
-    Route::resource('transactions', TransactionController::class);
+    Route::resource('transactions', TransactionController::class)->only('index', 'create', 'store');
 
     // Routes TRANSACTION TYPE
     Route::resource('transaction-types', TransactionTypeController::class);

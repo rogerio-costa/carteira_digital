@@ -13,11 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $account = Account::where('user_id', auth()->id())->with('transactions.transactionType')->first();
@@ -35,82 +31,26 @@ class TransactionController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $transaction_types = TransactionType::all();
         return view('pages.transactions.create', ['transaction_types' => $transaction_types]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(TransactionRequest $request)
     {
         $account = auth()->user()->account;
 
         $newBalance = $account->getNewBalance($request->value, TransactionType::find($request->transaction_type_id));
 
-        // if ($newBalance < 0) {
-        //     return redirect()->back()->withInput()->withErrors("Saldo insuficiente! Seu saldo atual é de R$ " . number_format($account->balance, 2, ',', '.'));
-        // }
+        if ($newBalance < 0) {
+             return redirect()->back()->withInput()->withErrors("Saldo insuficiente! Seu saldo atual é de R$ " . number_format($account->balance, 2, ',', '.'));
+        }
 
         $account->transactions()->create($request->validated());
 
         $account->update(['balance' => $newBalance]);
 
         return redirect()->route('transactions.index')->with('success', 'Transação de entrada cadastrada com sucesso');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
     }
 }
